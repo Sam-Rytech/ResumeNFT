@@ -6,12 +6,29 @@ declare global {
   }
 }
 
-export const getProvider = () => {
-  if (!window.ethereum) throw new Error('No wallet found')
+/**
+ * Returns a browser-compatible Ethers provider.
+ * Throws an error if no wallet is detected.
+ */
+export const getProvider = (): ethers.BrowserProvider => {
+  if (!window.ethereum) {
+    throw new Error(
+      'No wallet found. Please install MetaMask or another Web3 wallet.'
+    )
+  }
+
   return new ethers.BrowserProvider(window.ethereum)
 }
 
-export const getSigner = async () => {
+/**
+ * Requests account access and returns the signer (connected wallet).
+ */
+export const getSigner = async (): Promise<ethers.JsonRpcSigner> => {
+  // Prompt MetaMask to connect (shows popup if not connected)
+  await window.ethereum.request({ method: 'eth_requestAccounts' })
+
   const provider = getProvider()
-  return await provider.getSigner()
+  const signer = await provider.getSigner()
+
+  return signer
 }

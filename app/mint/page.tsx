@@ -8,7 +8,7 @@ import { getSigner } from "../../lib/ethers"
 import ABI from "../../abi/ResumeNFT.json"
 import { ethers } from 'ethers'
 
-const CONTRACT_ADDRESS = 'YOUR_DEPLOYED_CONTRACT_ADDRESS'
+const CONTRACT_ADDRESS = '0xf3dB9cD3D0209e76fEeB0a96ABf018Ad38862Fc5'
 
 export default function MintPage() {
   const [userAddress, setUserAddress] = useState('')
